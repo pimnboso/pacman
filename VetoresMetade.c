@@ -7,18 +7,19 @@ void limpa(){
 } // só para não se perder no código
 
 void main(){
-    int x, i;
+    int i;
+    float x;
     setlocale(LC_ALL, "portuguese");
 
     do{
     printf("Escolha um número entre 1 e 50: ");
-    scanf("%d", &x);
+    scanf("%f", &x);
     limpa();
 
-    }while((x < 1) || (x > 50));
+    }while(x < 2);
 
-    for(i = 0; i <= 10; i++){
-        printf("n[%d] = %d\n", i, x);
-        x = x * 2;
+    for(i = 0; i < 99; i++){
+        printf("n[%d] = %.4f\n", i, x);
+        x = x / 2;
     }
 }
