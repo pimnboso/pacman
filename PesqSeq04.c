@@ -37,8 +37,10 @@ int main(){
   prod[3].preco =  4 ;
 
   limpa();
-  int i, end;
+  int i = 0, end;
   char pesq[50];
+  int backup = -1;
+
   do{
   limpa();
   printf("Bem vindo ao nosso mercadinho, digite o produto que você deseja encontrar\n\nDigite sua resposta aqui ====> ");
@@ -46,22 +48,36 @@ int main(){
 
   fflush(stdin);
 
-  for(i = 0; i < 4; i++){
+  while(i < 4){
     if (strcmp(pesq , prod[i].nome) == 0){
+      backup = i;
+    }
+      if(i == 3){
+      if(backup != -1){
       limpa();
       printf("Produto encontrado!!!");
-      printf("\n\nNome:     %s", prod[i].nome);
-      printf("\nCódigo do produto:     %d", prod[i].codigo);
-      printf("\nPreço do produto:     %f", prod[i].preco);
-      printf("\nQuantidade em estoque do produto:     %d", prod[i].estoque);
-      break; // nunca fazer isso
-  }
-  else{
+      printf("\n\nNome:     %s", prod[backup].nome);
+      printf("\nCódigo do produto:     %d", prod[backup].codigo);
+      printf("\nPreço do produto:     %f", prod[backup].preco);
+      printf("\nQuantidade em estoque do produto:     %d", prod[backup].estoque);
+      backup = -1; //resetar o backup caso o usuário queira fazer outra pesquisa
+                          }
+                  }
+
+
+    i++;
+    if(i == 4){
+    if(backup == -1){      
     printf("Produto não encontrado");
-  }
+      }
+    }
+
+
 }
+
     printf("\nDeseja finalizar o programa? \n1)Sim\n2)Não\n\nDigite sua resposta aqui ====> ");
     scanf("%d", &end);
     fflush(stdin);
+    i = 0;
   }while(end == 2);
 }
