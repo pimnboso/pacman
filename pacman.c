@@ -1,50 +1,64 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "mapa.h" 
 
-FILE* arq;
-MAPA matriz;
-
-void limpa() {
-  system("clear");
-}
-
-void abrir_arquivo() {
-  arq = fopen("/Users/gabrielfranciscorocha/Desktop/Faculdade/LINGUAGEM DE PROGRAMAÇÃO/mapa.txt", "r");
-  if (arq == NULL) {
-    limpa();
-    printf("Não foi possível abrir o arquivo.\n");
-    exit(1);
-  }
-}
-
-void leitor() {
-  fscanf(arq, "%d %d", &matriz.linhas, &matriz.colunas);
-
-  matriz.m = (char**)malloc(sizeof(char*) * matriz.linhas);
-  
-  for (int i = 0; i < matriz.linhas; i++) {
-    matriz.m[i] = (char*)malloc(sizeof(char) * (matriz.colunas + 1));
-    fscanf(arq, "%s", matriz.m[i]);
-  }
-}
+XY position;
+int teste = 0;
 
 int main() {
+  bool end = false;
+  int i, j;
+
   limpa();
   abrir_arquivo();
   leitor();
 
-  for (int i = 0; i < matriz.linhas; i++) {
-    printf("%s\n", matriz.m[i]);
+  for(i = 0; i < matriz.linhas; i++) {
+    for(j = 0; j < matriz.colunas; j++) {
+      if(matriz.m[i][j] == CHARACTER) {
+        position.x = i;
+        position.y = j;
+      }
+    }
   }
 
-  fclose(arq);
+  char tecla;
+  int antx, anty;
 
-  // Libere a memória alocada
-  for (int i = 0; i < matriz.linhas; i++) {
-    free(matriz.m[i]);
-  }
-  free(matriz.m);
+  do {
+    limpa();
+    desenhar_map();
+    scanf("%c", &tecla);
+    antx = position.x;
+    anty = position.y;
 
+    switch (tecla) {
+      case ESQ: // esquerda
+          position.y--;
+        break;
+
+      case DIR: // direita
+          position.y++;
+        break;
+
+      case CIM: // cima
+          position.x--;
+        break;
+
+      case BAI: // baixo
+          position.x++;
+        break;
+    }
+
+    matriz.m[antx][anty] = " ";
+    matriz.m[position.x][position.y] = CHARACTER;
+
+    if (teste == 1) {
+      end = true;
+    }
+  } while (!end);
+
+  liberar_memory();
   return 0;
 }
