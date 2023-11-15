@@ -1,4 +1,4 @@
-#define VAZIO '.'
+#define VAZIO ' '
 #define PAREDE_V '|'
 #define PAREDE_H '-'
 #define CHARACTER '@'
@@ -52,6 +52,7 @@ void leitor() {
   }
 }
 
+
 void desenhar_map(){
     for (int i = 0; i < matriz.linhas; i++) {
     printf("%s\n", matriz.m[i]);
@@ -59,6 +60,7 @@ void desenhar_map(){
 
   fclose(arq);
 }
+
 
 void liberar_memory(){
     // Libere a memória alocada
